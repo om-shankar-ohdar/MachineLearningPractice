@@ -34,16 +34,19 @@ class Train:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     @classmethod
+    # Counts the number of parameters in the network
     def count_parameters(cls, model):
         return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
     @classmethod
+    # Initializes weights of each linear layer
     def init_weights(cls, netLayer):
         if type(netLayer) == nn.Linear:
             torch.nn.init.xavier_uniform_(netLayer.weight)
             netLayer.bias.data.fill_(0.01)
 
     @classmethod
+    # One hot encoding
     def one_hot(cls, x, K):
         return np.array(x[:, None] == np.arange(K)[None, :], dtype=int)
 
