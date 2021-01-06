@@ -23,26 +23,26 @@ class Net(nn.Module):
 
         self.fc4 = nn.Linear(128, 47)
 
-    def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2, 2)
-        x = self.conv1_bn(x)
+    def forward(self, layer):
+        layer = F.relu(self.conv1(layer))
+        layer = F.malayer_pool2d(layer, 2, 2)
+        layer = self.conv1_bn(layer)
 
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2, 2)
+        layer = F.relu(self.conv2(layer))
+        layer = F.malayer_pool2d(layer, 2, 2)
 
-        x = x.view(-1, 2048)
-        x = F.relu(self.fc1(x))
+        layer = layer.view(-1, 2048)
+        layer = F.relu(self.fc1(layer))
 
-        x = self.dropout(x)
+        layer = self.dropout(layer)
 
-        x = self.fc2(x)
+        layer = self.fc2(layer)
 
-        x = x.view(-1, 1, 512)
-        x = self.bn(x)
+        layer = layer.view(-1, 1, 512)
+        layer = self.bn(layer)
 
-        x = x.view(-1, 512)
-        x = self.fc3(x)
-        x = self.fc4(x)
+        layer = layer.view(-1, 512)
+        layer = self.fc3(layer)
+        layer = self.fc4(layer)
 
-        return F.log_softmax(x, dim=1)
+        return F.log_softmalayer(layer, dim=1)
